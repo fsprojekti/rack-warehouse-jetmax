@@ -54,6 +54,19 @@ Modbus variables
 |102|register|Write|slot_source|Source slot number from which package will be taken|values from 0 to 15
 |103|register|Write|slot_target|Target slot number to which package will be put|values from 0 to 15
 
+Example of manipulation robot to move package from slot 0 to slot 5
+
+```mermaid
+    sequenceDiagram
+    participant RPI as Rpi - Modbus client
+    participant PLC as PLC - Modbus server
+    Note over RPI, PLC: How to make robot move one <br>package from source slot 0 <br>to target slot 5 location
+    PLC->>RPI:set register 102 to 0
+    PLC->>RPI:set register 103 to 5
+    Note over PLC: this will begin execution of <br> robot manipulation of package
+    PLC->>RPI:set coil 200 to 1
+```
+
 ### PLC
 PLC host modbus server end of communication. The manipulation of the warehouse is done primary from the PLC side. The protocol is described in diagram
 
