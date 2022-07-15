@@ -3,6 +3,7 @@
 Rack warehouse implementation with JetMAx HiWonder robotic arm in NodeJs runtime environment. The diagram shows connection betwen robotic arm and PLK.
 
 ## Physical layer
+Phisicaly there are two hardware devices JetMax robot and Raspeberry pi.
 
 ### Robot
 Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other as is shown in figure
@@ -18,24 +19,29 @@ Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other
 
 Each slot is numbered as shown in table above and each slot has exact coordiantes regarding robot coordinate system (coordinates are defined in [config file](https://github.com/fsprojekti/rack-warehouse-jetmax/blob/master/config.js))
 
-
+### Raspberry Pi
+This is device on which applications for communication with robot on one side and with PLC on the other side is running. 
 
 ## Application layer
 
 ```mermaid
 graph LR
-    subgraph JetMax robotic arm 
-        D[Sockets server]
-    end
-    subgraph Raspberry Pi
-        E[Sockets client]
-        F[Control program]
-        B[Modbus client]
-    end
-    subgraph PLC
-        C[Modbus server]
-    end
+subgraph FF[Rack Warehouse model]
+  subgraph JetMax robotic arm 
+    D[Sockets server]
+  end
+  subgraph Raspberry Pi
+    E[Sockets client]
+    F[Control program]
+    B[Modbus client]
+  end
+end
+  subgraph PLC
+    C[Modbus server]
+  end
     D---|Sockets|E---F---B---|Modbus|C
+
+style FF fill:#A2D9CE, stroke:#148F77    
 ```
 
 ### JetMax socket server
