@@ -1,6 +1,6 @@
 # Rack warehouse model for PLC
 
-Rack warehouse implementation with JetMAx HiWonder robotic arm. The diagram shows connection betwen robotic arm and PLK.
+Rack warehouse implementation with JetMAx HiWonder robotic arm in NodeJs runtime environment. The diagram shows connection betwen robotic arm and PLK.
 
 ## Physical layer
 
