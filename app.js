@@ -13,7 +13,6 @@ let warehouseState = 0;
 let suckerState = false;
 let slotSource = 0;
 let slotTarget = 3;
-let move = false;
 let currentPosition = [];
 
 //Socket connection
@@ -92,9 +91,23 @@ let serverTCP = new ModbusRTU.ServerTCP(
                     case 201: {
                         resolve(suckerState);
                     }
+                        break;
+                    //Slot states
+                    // LOAD slot
+                    case 300: {
+                        resolve(false)
+                    }
+                        break
+                    // UNLOAD slot
+                    case 301: {
+                        resolve(false)
+                    }
                         break
                     default:
-                        resolve(false);
+                        if (addr > 301 && addr < 317){
+                            resolve(slots[addr-302]);
+                        }
+                        break
                 }
             });
         },
