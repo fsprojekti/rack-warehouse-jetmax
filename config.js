@@ -1,5 +1,10 @@
 export default {
     "slotsPositions": [
+        //Special slot LOAD
+        [-75, -75, 60],
+        //Special slot UNLOAD
+        [150, -75, 60],
+        //Storage slots
         [-75, -150, 60],
         [0, -150, 60],
         [75, -150, 60],
@@ -21,10 +26,10 @@ export default {
         true, true, false, false,
         false, false, false, false,
         false, false, false, false,
-        false, false, false, false
+        false, false, false, true
     ],
     "JetMax": {
-        "url": "192.168.220.76:9090"
+        "url": "192.168.220.96:9090"
     },
     "modbus": {
         "ip": "0.0.0.0",
