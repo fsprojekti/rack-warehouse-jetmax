@@ -1,9 +1,11 @@
+
 # Rack warehouse model for PLC
 
-Rack warehouse implementation with JetMAx HiWonder robotic arm in NodeJs runtime environment. The diagram shows connection betwen robotic arm and PLK.
+Rack warehouse implementation with JetMAx HiWonder robotic arm in NodeJs runtime environment.
 
-## Physical layer
-Phisicaly there are two hardware devices JetMax robot and Raspeberry pi.
+## Devices
+
+There are two hardware devices JetMax robot and Raspeberry pi.
 
 ### Robot
 Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other as is shown in figure
@@ -27,7 +29,9 @@ Layout of slots is shown on figure
 ### Raspberry Pi
 This is device on which applications for communication with robot on one side and with PLC on the other side is running. 
 
-## Application layer
+## Applications
+
+Applications runs on devices. JetMax robotic arm runs Socket server, and Raspberry Pi runs Socket client, Control program and Modbus server application.
 
 ```mermaid
 graph LR
@@ -38,24 +42,45 @@ subgraph FF[Rack Warehouse model]
   subgraph Raspberry Pi
     E[Sockets client]
     F[Control program]
-    B[Modbus client]
+    B[Modbus server]
   end
 end
   subgraph PLC
-    C[Modbus server]
+    C[Modbus client]
   end
     D---|Sockets|E---F---B---|Modbus|C
 
 style FF fill:#A2D9CE, stroke:#148F77    
 ```
 
-### JetMax socket server
-This server is preinstalled on the JetMax robotic arm computer. With sockets clinet it is possible to control robot.
+### Socket server
+Socket server server is preinstalled on the JetMax robotic arm computer. With sockets clinet it is possible to control the robot.
 
-### Raspberry Pi
-Rasspery Pi serves as a middleware hardware that connects robot with the PLC. With robot it connects via sockets protocol and with PLK it connects via ModBus TCP/IP protocol. 
+### Socket client
+Socket client application runs on RaspberryPi and connects with JetMac Server socket. 
 
-Modbus variables
+### Control program
+Control program function is:
+* store state of the warehouse
+* translate messages between Modbus server and Socket client
+* moves robot to properly manipulate packages
+
+### Modbus server
+
+Modbus server application that enables communication with other devices via Modbus protocol. API of this communication is specified in communication section.
+
+### PLC
+PLC device is just an example of device that can communicate with the Rack warehouse device via Modbus protocol.
+
+## Communication APIs
+
+### Socket
+Specification of this protocol can be found at https://github.com/JetMaxRoboticArm
+
+### Modbus
+
+Modbus communicates via registers
+
 |Register|Type|Read/Write|Name|Description|Instructions|
 |---|---|---|---|---|---|
 |100|register|Read|slots|Current state slot occupation (masked 16bit integer)|slots variable is masked 16bit integer. Each bit represents one slot in a warehouse totaling to 16 slots
@@ -82,24 +107,17 @@ Modbus variables
 |316|coil|Read|state slot|state of warehouse slot 14|
 |317|coil|Read|state slot|state of warehouse slot 15|
 
-
 Example of manipulation robot to move package from load slot 0 to storage slot 5
 
 ```mermaid
     sequenceDiagram
-    participant RPI as Rpi - Modbus client
-    participant PLC as PLC - Modbus server
+    participant RPI as RPI - Modbus server
+    participant PLC as PLC - Modbus client
     Note over RPI, PLC: How to make robot move one <br>package from source slot 0 <br>to target slot 5 location
     PLC->>RPI:set register 102 to 0
     PLC->>RPI:set register 103 to 5
     Note over PLC: this will begin execution of <br> robot manipulation of package
     PLC->>RPI:set coil 200 to 1
 ```
-
-### PLC
-PLC host modbus server end of communication. The manipulation of the warehouse is done primary from the PLC side. The protocol is described in diagram
-
-
-
 
 
