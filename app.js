@@ -200,8 +200,12 @@ let executeMove = () => {
             150
         ]);
 
-        //Set state
+        //Set state warehouse
         warehouseState = 0;
+
+        //Correct state slots
+        slots[slotSource] = false;
+        slots[slotTarget] = true;
     })
 }
 
@@ -304,8 +308,8 @@ function moveRobotUp(z) {
     return new Promise(async resolve => {
         //Get current position robot
         let msg = {};
-        msg.x=currentPosition[0];
-        msg.y=currentPosition[1]
+        msg.x = currentPosition[0];
+        msg.y = currentPosition[1]
         msg.z = z;
         msg.duration = 100;
         let pubData = publishData("publish:/moveTo", "/jetmax/speed_command", msg, false);
@@ -316,10 +320,10 @@ function moveRobotUp(z) {
     })
 }
 
-function suctionON(){
+function suctionON() {
     return new Promise(async resolve => {
-        let msg={};
-        msg.data=true;
+        let msg = {};
+        msg.data = true;
         let pubData = publishData("publish:/suction", "/jetmax/end_effector/sucker/command", msg, false);
         console.log("publish data sent: " + JSON.stringify(pubData));
         ws.send(JSON.stringify(pubData));
@@ -328,10 +332,10 @@ function suctionON(){
     })
 }
 
-function suctionOFF(){
+function suctionOFF() {
     return new Promise(async resolve => {
-        let msg={};
-        msg.data=false;
+        let msg = {};
+        msg.data = false;
         let pubData = publishData("publish:/suction", "/jetmax/end_effector/sucker/command", msg, false);
         console.log("publish data sent: " + JSON.stringify(pubData));
         ws.send(JSON.stringify(pubData));
