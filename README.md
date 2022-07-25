@@ -1,14 +1,14 @@
 
 # Rack warehouse model for PLC
 
-Rack warehouse implementation with JetMAx HiWonder robotic arm in NodeJs runtime environment.
+Rack warehouse implementation with JetMax HiWonder robotic arm in Node.js runtime environment.
 
 ## Devices
 
-There are two hardware devices JetMax robot and Raspeberry pi.
+There are two hardware devices: JetMax robot and Raspberry Pi.
 
 ### Robot
-Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other as is shown in figure
+Rack warehouse has 4 docks with capacity to stack 4 packages on top of each other as shown in figure below.
 
 <img src="https://i.ibb.co/P4Gwz2q/photo-2022-07-15-15-23-13.jpg" width="600">
 
@@ -19,19 +19,19 @@ Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other
 |slot 4|slot 5|slot 6|slot 7|
 |slot 0|slot 1|slot 2|slot 3|
 
-Each slot is numbered as shown in table above and each slot has exact coordiantes regarding robot coordinate system (coordinates are defined in [config file](https://github.com/fsprojekti/rack-warehouse-jetmax/blob/master/config.js))
+Each slot is enumerated as shown in table above and each slot has exact coordinates with reference to the robot coordinate system (coordinates are defined in [config file](https://github.com/fsprojekti/rack-warehouse-jetmax/blob/master/config.js))
 
-Rack warehouse has two additional slots one for loading package into the warehouse and another for unloading packages from warehouse.
-Layout of slots is shown on figure
+Rack warehouse has two additional slots, one for loading a package into the warehouse and another for unloading packages from warehouse.
+Layout of slots is shown in figure below.
 
 <img src="https://i.ibb.co/yqL0Sgx/warehous-Slots-Layout.png" width="600">
 
 ### Raspberry Pi
-This is device on which applications for communication with robot on one side and with PLC on the other side is running. 
+This is device on which applications for communication with robot on one side and with PLC on the other side are running. 
 
 ## Applications
 
-Applications runs on devices. JetMax robotic arm runs Socket server, and Raspberry Pi runs Socket client, Control program and Modbus server application.
+Applications run on devices. JetMax robotic arm runs Socket server and Raspberry Pi runs Socket client, Control program and Modbus server application.
 
 ```mermaid
 graph LR
@@ -54,16 +54,16 @@ style FF fill:#A2D9CE, stroke:#148F77
 ```
 
 ### Socket server
-Socket server server is preinstalled on the JetMax robotic arm computer. With sockets clinet it is possible to control the robot.
+Socket server is pre-installed on the JetMax robotic arm computer. With Socket client it is possible to control the robot.
 
 ### Socket client
-Socket client application runs on RaspberryPi and connects with JetMac Server socket. 
+Socket client application runs on RaspberryPi and connects with JetMax Socket server. 
 
 ### Control program
 Control program function is:
 * store state of the warehouse
 * translate messages between Modbus server and Socket client
-* moves robot to properly manipulate packages
+* move robot to properly manipulate packages
 
 ### Modbus server
 
@@ -75,7 +75,7 @@ PLC device is just an example of device that can communicate with the Rack wareh
 ## Communication APIs
 
 ### Socket
-Specification of this protocol can be found at https://github.com/JetMaxRoboticArm
+Specification of this protocol can be found at: https://github.com/JetMaxRoboticArm
 
 ### Modbus
 
@@ -107,7 +107,7 @@ Modbus communicates via registers
 |316|coil|Read|state slot|state of warehouse slot 14|
 |317|coil|Read|state slot|state of warehouse slot 15|
 
-Example of manipulation robot to move package from load slot 0 to storage slot 5
+Example of manipulation of robot to move package from load slot 0 to storage slot 5
 
 ```mermaid
     sequenceDiagram
