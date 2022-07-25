@@ -19,6 +19,11 @@ Rack warehouse has 4 docs with capacity to stack 4 packages on top of each other
 
 Each slot is numbered as shown in table above and each slot has exact coordiantes regarding robot coordinate system (coordinates are defined in [config file](https://github.com/fsprojekti/rack-warehouse-jetmax/blob/master/config.js))
 
+Rack warehouse has two additional slots one for loading package into the warehouse and another for unloading packages from warehouse.
+Layout of slots is shown on figure
+
+<img src="https://i.ibb.co/yqL0Sgx/warehous-Slots-Layout.png" width="600">
+
 ### Raspberry Pi
 This is device on which applications for communication with robot on one side and with PLC on the other side is running. 
 
@@ -56,10 +61,10 @@ Modbus variables
 |100|register|Read|slots|Current state slot occupation (masked 16bit integer)|slots variable is masked 16bit integer. Each bit represents one slot in a warehouse totaling to 16 slots
 |200|coil|Write|execute|Begin moving robot according to selected coordinates|triggers on rising edge (0->1)
 |101|register|Read|state|State of the warehouse|0-idle, 1-moving, 2-error)
-|102|register|Write|slot_source|Source slot number from which package will be taken|values from 0 to 15
-|103|register|Write|slot_target|Target slot number to which package will be put|values from 0 to 15
+|102|register|Write|slot_source|Source slot number from which package will be taken|values 0-load slot, 1-unload slot, 2,3...17 warehouse slots
+|103|register|Write|slot_target|Target slot number to which package will be put|values 0-load slot, 1-unload slot, 2,3...17 warehouse slots
 
-Example of manipulation robot to move package from slot 0 to slot 5
+Example of manipulation robot to move package from load slot 0 to storage slot 5
 
 ```mermaid
     sequenceDiagram
