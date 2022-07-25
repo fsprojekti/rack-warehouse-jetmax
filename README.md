@@ -63,6 +63,25 @@ Modbus variables
 |101|register|Read|state|State of the warehouse|0-idle, 1-moving, 2-error)
 |102|register|Write|slot_source|Source slot number from which package will be taken|values 0-load slot, 1-unload slot, 2,3...17 warehouse slots
 |103|register|Write|slot_target|Target slot number to which package will be put|values 0-load slot, 1-unload slot, 2,3...17 warehouse slots
+|300|coil|Read|state slot load|state of slot|
+|301|coil|Read|state slot unload|state of slot|
+|302|coil|Read|state slot|state of warehouse slot 0|
+|303|coil|Read|state slot|state of warehouse slot 1|
+|304|coil|Read|state slot|state of warehouse slot 2|
+|305|coil|Read|state slot|state of warehouse slot 3|
+|306|coil|Read|state slot|state of warehouse slot 4|
+|307|coil|Read|state slot|state of warehouse slot 5|
+|308|coil|Read|state slot|state of warehouse slot 6|
+|309|coil|Read|state slot|state of warehouse slot 7|
+|310|coil|Read|state slot|state of warehouse slot 8|
+|311|coil|Read|state slot|state of warehouse slot 9|
+|312|coil|Read|state slot|state of warehouse slot 10|
+|313|coil|Read|state slot|state of warehouse slot 11|
+|314|coil|Read|state slot|state of warehouse slot 12|
+|315|coil|Read|state slot|state of warehouse slot 13|
+|316|coil|Read|state slot|state of warehouse slot 14|
+|317|coil|Read|state slot|state of warehouse slot 15|
+
 
 Example of manipulation robot to move package from load slot 0 to storage slot 5
 
