@@ -7,6 +7,7 @@ const require = createRequire(import.meta.url);
 const ModbusRTU = require("modbus-serial");
 
 const slots = config.slotsInit;
+
 //State 0-idle, 1-moving, 2-error-modbus,3 error-jetmax
 let warehouseState = 0;
 let suckerState = false;
@@ -203,9 +204,9 @@ let executeMove = () => {
         //Set state warehouse
         warehouseState = 0;
 
-        //Correct state slots
-        slots[slotSource] = false;
-        slots[slotTarget] = true;
+        //Correct state of warehouse slots
+        if (slotSource > 1) slots[slotSource - 2] = false;
+        if (slotTarget > 1) slots[slotTarget - 2] = true;
     })
 }
 
