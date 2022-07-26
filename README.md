@@ -116,7 +116,7 @@ Example of manipulation of robot to move package from load slot 0 to storage slo
     Note over RPI, PLC: How to make robot move one <br>package from source slot 0 <br>to target slot 5 location
     PLC->>RPI:set register 102 to 0
     PLC->>RPI:set register 103 to 5
-    Note over PLC: this will begin execution of <br> robot manipulation of package
+    Note over PLC: this will begin <br>execution of robot<br>manipulation <br> of package
     PLC->>RPI:set coil 200 to 1
 ```
 
