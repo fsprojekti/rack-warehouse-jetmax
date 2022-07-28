@@ -35,38 +35,40 @@ Applications run on devices. JetMax robotic arm runs Socket server and Raspberry
 
 ```mermaid
 graph LR
-subgraph FF[Rack Warehouse model]
   subgraph JetMax robotic arm 
+   
     D[Sockets server]
+     subgraph NodeJs
+      E[Sockets client]
+      F[Control program]
+      B[Modbus server]
+    end
   end
-  subgraph Raspberry Pi
-    E[Sockets client]
-    F[Control program]
-    B[Modbus server]
-  end
-end
   subgraph PLC
     C[Modbus client]
   end
     D---|Sockets|E---F---B---|Modbus|C
-
-style FF fill:#A2D9CE, stroke:#148F77    
+    
+    style NodeJs fill:#A2D9CE, stroke:#148F77   
+   
 ```
 
 ### Socket server
 Socket server is pre-installed on the JetMax robotic arm computer. With Socket client it is possible to control the robot.
 
-### Socket client
-Socket client application runs on RaspberryPi and connects with JetMax Socket server. 
+### NodeJs
+NodeJs application runs on JetMax robotic arm computer and enables three modules Socket client, Control program and Modbus server.
 
-### Control program
+#### Socket client
+Enables communication with JetMax robotic arm socket server. 
+
+#### Control program
 Control program function is:
 * store state of the warehouse
 * translate messages between Modbus server and Socket client
 * move robot to properly manipulate packages
 
-### Modbus server
-
+#### Modbus server
 Modbus server application that enables communication with other devices via Modbus protocol. API of this communication is specified in communication section.
 
 ### PLC
